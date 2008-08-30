@@ -27,3 +27,8 @@
     Tibor Fogler  foglert@robitbt.hu  www.robitbt.hu
     2008.04.20
 
+------------------------------------------------
+Revision Log:
+Rev1: http://pko.ch
+  * Fixed some security issues (files and dir were created with 777. Changed to 644)
+  * Factored out some path responsibilities.

@@ -16,11 +16,19 @@
                          www.robitbt.hu
  2008.04.20
 */
+function generate_base_url(){
+  if(!$_SERVER['HTTPS'] ||$_SERVER['HTTPS'] === 'off'){
+    $protocol = 'http';
+  }else{
+    $protocol = 'https';
+  }
+  return $protocol.'://'.$_SERVER['SERVER_NAME'].'/';
+}
 global $GDok,$IMGFOLDER,$IMGURL,$AUDIOICON,$VIDEOICON;
 $GDok = TRUE;
 // ------------ config section --------------------
-$IMGFOLDER = 'your_document_root/your_images_folder';
-$IMGURL = 'http://your_site/your_image_folder';
+$IMGFOLDER_name = '/images';
+$path_to_public_html = '../../../../../../../../../';
 $VIDEOICON = 'video.jpg';
 $AUDIOICON = 'audio.jpg';
 // language setting   en
@@ -30,6 +38,8 @@ $INSERTIMG = 'Insert image into HTML';
 $UPLOADIMG = 'Upload';
 $HELPSTR = 'Click a image!';
 // -------------------------------------------------
+$IMGFOLDER = $relative_path_to_public_html.$IMGFOLDER_name;
+$IMGURL = generate_base_url().$IMGFOLDER_name;
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html>
@@ -93,8 +103,8 @@ function make_thumb($img_name,$filename,$new_w,$new_h) {
 	      }
 	  }
       //destroys source and destination images.
-      imagedestroy($dst_img);
-      imagedestroy($src_img);
+      @imagedestroy($dst_img);
+      @imagedestroy($src_img);
     }
   }
 }
@@ -219,14 +229,14 @@ if ($act == 'upload') {
   // do file upload
     $name = $_FILES['upload']['name'];
     if (!is_dir($dirname)) {
-       mkdir($dirname,0777);
+       mkdir($dirname,0644);
     };
     if (file_exists("$dirname/$name"))  {
          echo "<p>"._EXIST." $dirname/$name </p>";
     } else {
         if (is_uploaded_file($_FILES['upload']['tmp_name'])) {
            if (move_uploaded_file($_FILES['upload']['tmp_name'],"$dirname/$name" ))
-              chmod("$dirname/$name",0777);
+              chmod("$dirname/$name",0644);
         };
         if (!file_exists("$dirname/$name")) {
           echo "<p>"._UPLOADERROR." $dirname/$name</p2>\n";
