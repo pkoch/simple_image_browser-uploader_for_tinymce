@@ -38,7 +38,7 @@ $INSERTIMG = 'Insert image into HTML';
 $UPLOADIMG = 'Upload';
 $HELPSTR = 'Click a image!';
 // -------------------------------------------------
-$IMGFOLDER = $relative_path_to_public_html.$IMGFOLDER_name;
+$IMGFOLDER = $path_to_public_html.$IMGFOLDER_name;
 $IMGURL = generate_base_url().$IMGFOLDER_name;
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
